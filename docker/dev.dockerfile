@@ -7,7 +7,8 @@
 
 # TODO(drpng): upgrade to latest (18.04)
 ARG cpu_base_image="ubuntu:16.04"
-ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
+#ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
+ARG base_image="nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04"
 FROM $base_image
 
 LABEL maintainer="Patrick Nguyen <drpng@google.com>"
@@ -15,7 +16,8 @@ LABEL maintainer="Patrick Nguyen <drpng@google.com>"
 # Re-declare args because the args declared before FROM can't be used in any
 # instruction after a FROM.
 ARG cpu_base_image="ubuntu:16.04"
-ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
+#ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
+ARG base_image="nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04"
 
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -72,7 +74,8 @@ RUN jupyter serverextension enable --py jupyter_http_over_ws
 # The latest tf-nightly-gpu requires CUDA 10 compatible nvidia drivers (410.xx).
 # If you are unable to update your drivers, an alternative is to compile
 # TensorFlow from source instead of installing from pip. 
-RUN pip --no-cache-dir install tf-nightly$(test "$base_image" != "$cpu_base_image" && echo "-gpu")
+RUN pip --no-cache-dir install tensorflow-gpu==1.12.0
+#RUN pip --no-cache-dir install tf-nightly$(test "$base_image" != "$cpu_base_image" && echo "-gpu")
 
 ARG bazel_version=0.17.2
 # This is to install bazel, for development purposes.
