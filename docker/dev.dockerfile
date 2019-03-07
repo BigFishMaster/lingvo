@@ -7,7 +7,7 @@
 
 # TODO(drpng): upgrade to latest (18.04)
 ARG cpu_base_image="ubuntu:16.04"
-ARG base_image=$cpu_base_image
+ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
 FROM $base_image
 
 LABEL maintainer="Patrick Nguyen <drpng@google.com>"
@@ -15,7 +15,7 @@ LABEL maintainer="Patrick Nguyen <drpng@google.com>"
 # Re-declare args because the args declared before FROM can't be used in any
 # instruction after a FROM.
 ARG cpu_base_image="ubuntu:16.04"
-ARG base_image=$cpu_base_image
+ARG base_image="nvidia/cuda:10.0-cudnn7-runtime-ubuntu16.04"
 
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
